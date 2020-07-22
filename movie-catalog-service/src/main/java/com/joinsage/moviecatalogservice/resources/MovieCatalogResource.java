@@ -5,6 +5,7 @@ import com.joinsage.moviecatalogservice.models.Movie;
 import com.joinsage.moviecatalogservice.models.Rating;
 import com.joinsage.moviecatalogservice.models.UserRating;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,15 +27,18 @@ public class MovieCatalogResource {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
         // get rated movie ID - for each ID, call info service and get details. Finally put them all together.
 
-        UserRating ratings = restTemplate.getForObject("http://localhost:8082/ratings/users/" + userId, UserRating.class);
+        UserRating ratings = restTemplate.getForObject("http://ratings-data-service/ratings/users/" + userId, UserRating.class);
 
         return ratings.getUserRating().stream().map(rating -> {
             // RestTemplate based Implementation: Call Movie-Info service running on port 8081
-            Movie movie = restTemplate.getForObject("http://localhost:8081/movies/" + rating.getMovieID(), Movie.class);
+            Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieID(), Movie.class);
 
             /*
             // WebClient based implementation: Reactive Web Way (Call Movie-Info service running on port 8081)
