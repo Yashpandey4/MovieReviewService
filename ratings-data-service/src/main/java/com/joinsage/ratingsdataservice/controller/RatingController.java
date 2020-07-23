@@ -1,38 +1,34 @@
 package com.joinsage.ratingsdataservice.controller;
 
 
-import com.joinsage.ratingsdataservice.dao.MovieRatingDao;
 import com.joinsage.ratingsdataservice.entity.MovieRating;
+import com.joinsage.ratingsdataservice.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("/ratings")
 public class RatingController {
     @Autowired
-    private MovieRatingDao dao;
+    private RatingService ratingService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Set<MovieRating>> getAllRatings() {
-        return dao.getAllRatings();
+    public List<MovieRating> getAllRatings() {
+        return ratingService.getAllRatings();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Set<MovieRating> getRatingsById(@PathVariable("id") int id){
-        return dao.getRatingsById(id);
+    @RequestMapping(value = "/{userID}", method = RequestMethod.GET)
+    public List<MovieRating>  getRatingsById(@PathVariable("userID") String userID){
+        return ratingService.getRatingsById(userID);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void insertUser(@RequestBody MovieRating movieRating) {
-        dao.insertUser(movieRating);
+    public ResponseEntity<?> saveRating(@RequestBody MovieRating movieRating) {
+        return ratingService.saveRating(movieRating);
     }
 
-    @RequestMapping(value = "/{id}" ,method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void insertRatingByUser(@PathVariable("id") int id ,@RequestBody MovieRating movieRating) {
-        dao.insertRating(id, movieRating);
-    }
 }
