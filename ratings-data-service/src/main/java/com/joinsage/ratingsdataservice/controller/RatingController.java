@@ -15,18 +15,22 @@ import java.util.Set;
 public class RatingController {
     @Autowired
     private MovieRatingDao dao;
+
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Set<MovieRating>> getAllRatings() {
         return dao.getAllRatings();
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Set<MovieRating> getRatingsById(@PathVariable("id") int id){
         return dao.getRatingsById(id);
     }
+
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void insertUser(@RequestBody MovieRating movieRating) {
         dao.insertUser(movieRating);
     }
+
     @RequestMapping(value = "/{id}" ,method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void insertRatingByUser(@PathVariable("id") int id ,@RequestBody MovieRating movieRating) {
         dao.insertRating(id, movieRating);
