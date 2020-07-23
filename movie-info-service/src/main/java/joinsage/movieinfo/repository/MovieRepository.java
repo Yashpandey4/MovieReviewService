@@ -1,12 +1,13 @@
-package joinsage.movieinfo;
+package joinsage.movieinfo.repository;
 
 import java.util.List;
 
+import joinsage.movieinfo.model.Movie;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface MovieRepository extends MongoRepository<Movie, String> {
 
-    public Movie findByMoveiId(String movieId);
-    public List<Movie> findByNameStartingWith(String name);
+    Movie findByMovieId(String movieId);
+    List<Movie> findByNameStartingWith(String name);
 
 }
