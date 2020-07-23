@@ -1,10 +1,10 @@
-package com.example.movieinfo.demo;
+package com.joinsage.apigateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class ZuulApiApplicationTests {
 
     @Test
     void contextLoads() {
