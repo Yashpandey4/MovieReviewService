@@ -1,29 +1,36 @@
 package com.joinsage.ratingsdataservice.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "movieRatings")
 public class MovieRating {
-    private int userID;
-    private int movieID;
+    @Id
+    private String ratingID;
+    private String userID;
+    private String movieID;
     private int rating;
 
-    public MovieRating(int userID, int movieID, int rating) {
+    public MovieRating(String userID, String movieID, int rating) {
         this.userID = userID;
         this.movieID = movieID;
         this.rating = rating;
+        this.ratingID = userID+'-'+movieID;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
-    public int getMovieID() {
+    public String getMovieID() {
         return movieID;
     }
 
-    public void setMovieID(int movieID) {
+    public void setMovieID(String movieID) {
         this.movieID = movieID;
     }
 
