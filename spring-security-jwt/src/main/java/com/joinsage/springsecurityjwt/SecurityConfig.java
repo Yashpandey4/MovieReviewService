@@ -1,10 +1,13 @@
 package com.joinsage.springsecurityjwt;
 
 import com.joinsage.springsecurityjwt.services.MyUserDetailsService;
+import com.joinsage.springsecurityjwt.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,10 +23,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(myUserDetailsService);
-        auth.inMemoryAuthentication()
-                .withUser("Pratyush").password("password").roles("USER")
-                .and()
-                .withUser("Uneet").password("password").roles("ADMIN");
+//        auth.inMemoryAuthentication()
+//                .withUser("Pratyush").password("password").roles("USER")
+//                .and()
+//                .withUser("Uneet").password("password").roles("ADMIN");
     }
 
     @Bean
@@ -32,11 +35,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public JwtUtil JwtUtilBean() {
+        return new JwtUtil();
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/", "static/css", "static/js").permitAll()
-                .and().formLogin();  // default config
+        http.csrf().disable()
+                .authorizeRequests().antMatchers("/authenticate").permitAll()
+                .anyRequest().authenticated();
+//        http.authorizeRequests()
+//                .antMatchers("/admin").hasRole("ADMIN")
+//                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/", "static/css", "static/js").permitAll()
+//                .and().formLogin();  // default config
     }
 }
