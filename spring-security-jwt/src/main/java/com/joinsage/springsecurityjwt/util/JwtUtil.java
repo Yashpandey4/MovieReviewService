@@ -15,11 +15,11 @@ public class JwtUtil {
 
     private String SECRET_KEY = "top-secret";
 
-    private String extractUsername(String token) {
+    public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    private Date extractExpiration(String token) {
+    public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
