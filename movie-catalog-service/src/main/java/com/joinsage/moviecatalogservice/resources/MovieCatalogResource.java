@@ -35,6 +35,7 @@ public class MovieCatalogResource {
         // get rated movie ID - for each ID, call info service and get details. Finally put them all together.
 
         UserRating ratings = restTemplate.getForObject("http://ratings-data-service/ratings/users/" + userId, UserRating.class);
+//        http://apigateway/ratings-data/ratings/user
 
         return ratings.getUserRating().stream().map(rating -> {
             // RestTemplate based Implementation: Call Movie-Info service running on port 8081
