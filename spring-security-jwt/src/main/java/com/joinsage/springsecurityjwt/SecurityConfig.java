@@ -60,13 +60,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.authorizeRequests()
-//                .antMatchers("/admin").hasRole("ADMIN")
-//                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
-//                .antMatchers("/", "static/css", "static/js").permitAll()
-//                .and().formLogin();  // default config
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.STATELESS)
+        /* This is without using 
+        http.authorizeRequests()
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/", "static/css", "static/js").permitAll()
+                .and().formLogin();  // default config
+         */
+
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 }
