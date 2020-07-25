@@ -5,6 +5,7 @@ import com.joinsage.springsecurityjwt.models.AuthenticationResponse;
 import com.joinsage.springsecurityjwt.services.MyUserDetailsService;
 import com.joinsage.springsecurityjwt.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+@EnableZuulProxy
 @RestController
 public class HelloResource {
 
@@ -49,6 +51,5 @@ public class HelloResource {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
 
     }
-
 
 }
