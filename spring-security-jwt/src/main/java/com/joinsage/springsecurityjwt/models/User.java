@@ -1,16 +1,18 @@
 package com.joinsage.springsecurityjwt.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-public class AuthenticationRequest {
+@Document(collection = "users")
+public class User {
     @Id
     private String username;
     private String password;
 
-    public AuthenticationRequest() {
+    public User(){
     }
 
-    public AuthenticationRequest(String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
