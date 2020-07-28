@@ -49,7 +49,7 @@ public class SchemaServiceApplication {
 			List<ChoiceSchema> rating2List= new ArrayList<>();
 			ComponentSchema rating2 = new ComponentSchema("rating",
 					"rating-upload","rating" ,
-					"Enter Movie",rating2List,1,
+					"Enter Rating",rating2List,1,
 					2);
 			schemaRepository.save(rating2);
 			List<ChoiceSchema> rating3List= new ArrayList<>();
