@@ -1,7 +1,5 @@
 package com.joinsage.schemaservice.controller;
 
-import com.joinsage.schemaservice.response.MovieUploadResponse;
-import com.joinsage.schemaservice.response.RatingUploadResponse;
 import com.joinsage.schemaservice.schema.ComponentSchema;
 import com.joinsage.schemaservice.service.SchemaService;
 import org.springframework.beans.factory.annotation.Autowired;
