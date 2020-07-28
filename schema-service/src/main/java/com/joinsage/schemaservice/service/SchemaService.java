@@ -1,8 +1,6 @@
 package com.joinsage.schemaservice.service;
 
 import com.joinsage.schemaservice.repository.SchemaRepository;
-import com.joinsage.schemaservice.response.MovieUploadResponse;
-import com.joinsage.schemaservice.response.RatingUploadResponse;
 import com.joinsage.schemaservice.schema.ChoiceSchema;
 import com.joinsage.schemaservice.schema.ComponentSchema;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +45,11 @@ public class SchemaService {
                 return new ResponseEntity(schema.get(i).getName() + " is required", HttpStatus.BAD_REQUEST);
             }
             if(res.get(schema.get(i).getName()) == null) continue;
+
             if("rating".equals(schema.get(i).getContentType())) {
                 int rating = Integer.parseInt(res.get(schema.get(i).getName()));
                 if(rating < 1 || rating > 5) {
-                    return new ResponseEntity("Rating should be between 1 and 5", HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity("rating should be between 1 and 5", HttpStatus.UNPROCESSABLE_ENTITY);
                 }
             }
             else if("select".equals(schema.get(i).getContentType())) {
