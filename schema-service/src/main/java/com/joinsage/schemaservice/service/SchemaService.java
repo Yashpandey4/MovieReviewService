@@ -47,6 +47,9 @@ public class SchemaService {
             if(res.get(schema.get(i).getName()) == null) continue;
 
             if("rating".equals(schema.get(i).getContentType())) {
+                if(!isNumeric(res.get(schema.get(i).getName()))) {
+                    return new ResponseEntity("rating should be a number", HttpStatus.UNPROCESSABLE_ENTITY)
+                }
                 int rating = Integer.parseInt(res.get(schema.get(i).getName()));
                 if(rating < 1 || rating > 5) {
                     return new ResponseEntity("rating should be between 1 and 5", HttpStatus.UNPROCESSABLE_ENTITY);
@@ -66,5 +69,13 @@ public class SchemaService {
             }
         }
         return null;
+    }
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 }
