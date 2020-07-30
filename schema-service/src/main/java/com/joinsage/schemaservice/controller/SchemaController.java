@@ -1,5 +1,6 @@
 package com.joinsage.schemaservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.joinsage.schemaservice.schema.ComponentSchema;
 import com.joinsage.schemaservice.service.SchemaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class SchemaController {
     }
 
     @RequestMapping(value="/rating-upload" ,method = RequestMethod.POST )
-    public ResponseEntity<String>  postRating(@RequestBody Map<String,String> res) {
+    public ResponseEntity<String>  postRating(@RequestBody Map<String,String> res) throws JsonProcessingException {
         return schemaService.postRating(res);
     }
 }

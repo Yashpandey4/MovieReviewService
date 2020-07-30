@@ -29,7 +29,7 @@ public class RatingController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> saveRating(@RequestBody MovieRating movieRating) {
+    public ResponseEntity<String> saveRating(@RequestBody MovieRating movieRating) {
         return ratingService.saveRating(movieRating);
     }
 

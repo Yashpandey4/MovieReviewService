@@ -22,8 +22,8 @@ public class RatingService {
         return ratingRepository.getAllByUserID(userID);
     }
 
-    public ResponseEntity<?> saveRating(MovieRating movieRating) {
-        if(movieRating.getMovieID() == null ||
+    public ResponseEntity<String> saveRating(MovieRating movieRating) {
+        if(movieRating.getMovieName() == null ||
             movieRating.getUserID() == null ||
             movieRating.getRating() < 1 || movieRating.getRating() > 5) {
             return new ResponseEntity("Rating Cannot be added", HttpStatus.BAD_REQUEST);
