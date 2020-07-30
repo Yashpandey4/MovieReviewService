@@ -6,6 +6,7 @@ import com.joinsage.moviecatalogservice.models.Rating;
 import com.joinsage.moviecatalogservice.models.UserRating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@EnableZuulProxy
 @RestController
 @RequestMapping("/catalog")
 public class MovieCatalogResource {
@@ -34,11 +36,12 @@ public class MovieCatalogResource {
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
         // get rated movie ID - for each ID, call info service and get details. Finally put them all together.
 
-        UserRating ratings = restTemplate.getForObject("http://ratings-data-service/ratings/users/" + userId, UserRating.class);
+        UserRating ratings = restTemplate.getForObject("http://apigateway/ratings-data/ratings/user" + userId, UserRating.class);
+//        http://ratings-data-service/ratings/users/
 
         return ratings.getUserRating().stream().map(rating -> {
             // RestTemplate based Implementation: Call Movie-Info service running on port 8081
-            Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieID(), Movie.class);
+            Movie movie = restTemplate.getForObject("http://apigateway/movie-info/movies/" + rating.getMovieID(), Movie.class);
 
             /*
             // WebClient based implementation: Reactive Web Way (Call Movie-Info service running on port 8081)
