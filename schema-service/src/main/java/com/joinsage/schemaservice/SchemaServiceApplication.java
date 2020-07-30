@@ -33,7 +33,7 @@ public class SchemaServiceApplication {
 					1);
 			schemaRepository.save(movie1);
 			List<ChoiceSchema> movie2List= new ArrayList<>();
-			ComponentSchema movie2 = new ComponentSchema("movieDescription",
+			ComponentSchema movie2 = new ComponentSchema("description",
 					"movie-upload","text" ,
 					"Enter Description",movie2List,1,
 					2);

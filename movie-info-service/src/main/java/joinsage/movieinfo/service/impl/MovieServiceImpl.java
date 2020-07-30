@@ -25,7 +25,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> findByNameStartingWith(String name) {
-        return movieRepository.findByNameStartingWith(name);
+        return movieRepository.findByMovieNameStartingWith(name);
     }
 
     @Override

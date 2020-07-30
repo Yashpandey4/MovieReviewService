@@ -8,14 +8,22 @@ public class MovieRating {
     @Id
     private String ratingID;
     private String userID;
-    private String movieID;
+    private String movieName;
     private int rating;
 
-    public MovieRating(String userID, String movieID, int rating) {
+    public MovieRating(String userID, String movieName, int rating) {
         this.userID = userID;
-        this.movieID = movieID;
+        this.movieName = movieName;
         this.rating = rating;
-        this.ratingID = userID+'-'+movieID;
+        this.ratingID = userID + "." + movieName;
+    }
+
+    public String getRatingID() {
+        return ratingID;
+    }
+
+    public void setRatingID(String ratingID) {
+        this.ratingID = ratingID;
     }
 
     public String getUserID() {
@@ -26,12 +34,12 @@ public class MovieRating {
         this.userID = userID;
     }
 
-    public String getMovieID() {
-        return movieID;
+    public String getMovieName() {
+        return movieName;
     }
 
-    public void setMovieID(String movieID) {
-        this.movieID = movieID;
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
     }
 
     public int getRating() {
