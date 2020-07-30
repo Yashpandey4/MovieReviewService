@@ -23,7 +23,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
 
         return UserDetailsImpl.build(user);
-//        return new User("Pratyush", "password", new ArrayList<>()); // The last parameter is a list of authorities
     }
 }
 
