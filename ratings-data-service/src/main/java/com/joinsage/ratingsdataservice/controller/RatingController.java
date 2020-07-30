@@ -4,12 +4,14 @@ package com.joinsage.ratingsdataservice.controller;
 import com.joinsage.ratingsdataservice.entity.MovieRating;
 import com.joinsage.ratingsdataservice.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@EnableZuulProxy
 @RestController
 @RequestMapping("/ratings")
 public class RatingController {
